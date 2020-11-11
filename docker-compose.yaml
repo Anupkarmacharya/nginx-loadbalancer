@@ -1,0 +1,38 @@
+version: '3'
+services:
+  load-balancer:
+    build: ./loadbalancer
+    ports:
+      - '80:80'
+    links:
+      - nginx1
+      - nginx2
+      - nginx3
+    networks:
+      - nginx-network
+  
+  nginx1:
+    build: ./nginx1
+    ports:
+      - '81:80'
+    networks:
+      - nginx-network
+
+  nginx2:
+    build: ./nginx2
+    ports:
+      - '82:80'
+    networks:
+      - nginx-network
+
+  nginx3:
+    build: ./nginx3
+    ports:
+      - '83:80'
+    networks:
+      - nginx-network
+
+networks:
+  nginx-network:
+    external:
+      name: nginx-network
